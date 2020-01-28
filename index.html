@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<style>
+body {font-family: 'Roboto', sans-serif;
+}	
+card {display: inline-block;
+ box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+ background: #fff;
+  border-radius: 2px;
+margin: 1rem;
+padding:2rem;
+width:240px;}
+.station {font-size:24px;}
+.temperature {font-size:48px; float: left;}
+.dewpoint {font-size:36px; color:#d2d2d2; margin-top:15px}
+#wind_dir {display: inline-block; margin-left:6px	}
+
+
+
+</style>
+<card id="card">
+<div class="station">Kraków Airport</div>
+<div class="temperature"><span id="temperature"></span>&deg;</div>
+<div class="dewpoint"><span id="dewpoint"></span>&deg;</div>
+<div><span class="label">Widoczność: </span><span id="visibility" </span></div>
+<div><span class="label">Wiatr: </span><span id="wind" </span></div>
+<div class="time"><span id="time"></span></div>
+</card>
+<script>
+
+
+function get_data_from_url(url){
+    var http_req = new XMLHttpRequest();
+    http_req.open("GET",'http://avwx.rest/api/metar/EPKK?token=0IBh_4LUuxvuT8ZdzmFFhtW4c9WgnVrkJil9_Hpvy90',false);
+    http_req.send(null);
+    return http_req.responseText;          
+}
+
+function parseIsoDatetime(dtstr) {
+    var d = new Date(dtstr);
+    var dt = d.getHours();
+    return dt;
+}
+
+var data_url = "http://avwx.rest/api/metar/EPKK?token=0IBh_4LUuxvuT8ZdzmFFhtW4c9WgnVrkJil9_Hpvy90";
+var obj = JSON.parse(get_data_from_url(data_url));
+console.log("Data object: "+ obj);
+
+
+document.getElementById("temperature").innerHTML = obj.temperature.value + " " + obj.units.temperature;
+document.getElementById("dewpoint").innerHTML = obj.dewpoint.value + " " + obj.units.temperature;
+document.getElementById("visibility").innerHTML = obj.visibility.repr  +" " + obj.units.visibility;
+document.getElementById("wind").innerHTML =  obj.wind_speed.repr  + " " + obj.units.wind_speed + "<wind id=wind_dir>\u2191</wind>";
+document.getElementById("time").innerHTML = obj.meta.timestamp;
+
+document.getElementById('wind_dir').style.transform = 'rotate(' + obj.wind_direction.value + 'deg)';
+if (obj.visibility.repr < 500) {
+document.getElementById('card').style.backgroundColor = '#fbe9e7';
+} 
+</script>
+
+</body>
+</html>
+
+<!--
+
+{ 
+   "meta":{ 
+      "timestamp":"2019-12-31T13:13:47.608780+00:00Z"
+   },
+   "altimeter":{ 
+      "repr":"1024",
+      "value":1024,
+      "spoken":"one zero two four"
+   },
+   "clouds":[ 
+      { 
+         "repr":"FEW023",
+         "type":"FEW",
+         "altitude":23,
+         "modifier":null,
+         "direction":null
+      },
+      { 
+         "repr":"BKN038",
+         "type":"BKN",
+         "altitude":38,
+         "modifier":null,
+         "direction":null
+      }
+   ],
+   "flight_rules":"VFR",
+   "other":[ 
+
+   ],
+   "sanitized":"EPKK 311300Z 24011KT 9999 FEW023 BKN038 04/00 Q1024 ",
+   "visibility":{ 
+      "repr":"9999",
+      "value":9999,
+      "spoken":"nine nine nine nine"
+   },
+   "wind_direction":{ 
+      "repr":"240",
+      "value":240,
+      "spoken":"two four zero"
+   },
+   "wind_gust":null,
+   "wind_speed":{ 
+      "repr":"11",
+      "value":11,
+      "spoken":"one one"
+   },
+   "raw":"EPKK 311300Z 24011KT 9999 FEW023 BKN038 04/00 Q1024",
+   "station":"EPKK",
+   "time":{ 
+      "repr":"311300Z",
+      "dt":"2019-12-31T13:00:00+00:00Z"
+   },
+   "remarks":"",
+   "dewpoint":{ 
+      "repr":"00",
+      "value":0,
+      "spoken":"zero"
+   },
+   "remarks_info":{ 
+      "dewpoint_decimal":null,
+      "temperature_decimal":null
+   },
+   "runway_visibility":[ 
+
+   ],
+   "temperature":{ 
+      "repr":"04",
+      "value":4,
+      "spoken":"four"
+   },
+   "wind_variable_direction":[ 
+
+   ],
+   "units":{ 
+      "altimeter":"hPa",
+      "altitude":"ft",
+      "temperature":"C",
+      "visibility":"m",
+      "wind_speed":"kt"
+   }
+}
+
+-->
