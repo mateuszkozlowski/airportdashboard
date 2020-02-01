@@ -118,14 +118,14 @@ card {
     <div style="position: absolute;bottom:50px"> <span id="temperature"></span><span style="font-style: normal;
 font-weight: 300;
 font-size: 64px;
-line-height: 75px;">&deg;</span><span id="dewpoint"></span><span style="font-size:36px; color:#d2d2d2;margin-right:30px">&deg;</span><span class="weather-value" id="wind"> </span><img src="img/icon-visibility.png" style="height:25px" /> <span class="weather-value" id="visibility"> </span></div>
+line-height: 75px;">&deg;</span><span id="dewpoint"></span><span style="font-size:36px; color:#d2d2d2;margin-right:30px">&deg;</span><img src="img/icon-wind.png" style="height:25px" /><span class="weather-value" id="wind"> </span><img src="img/icon-visibility.png" style="height:25px" /> <span class="weather-value" id="visibility"> </span></div>
 </card-placeholder>
 <card-placeholder class="clock-card">
     <div class="airport-name"><span style="font-weight:bold">EPKK</span> - Kraków John Paul II Airport</div>
     <div id="currenttime"></div>
 </card-placeholder>
 <card-placeholder class="side-card"></card-placeholder>
-<card-placeholder class="map-card"></card-placeholder>
+<card-placeholder class="map-card"><iframe src="https://flightaware.com/live/airport_status_bigmap.rvt?airport=EPKK"width="100%"height="100%"	frameBorder="0"></iframe></card-placeholder>
 
 Valid on <span id="time"></span>
 <script>
@@ -160,7 +160,7 @@ function getData() {
     }
   
     if (obj.visibility.repr == "CAVOK") {
-        document.getElementById("visibility").innerHTML = "> 1 km";
+        document.getElementById("visibility").innerHTML = "&nbsp;>1 km";
     } else {
         document.getElementById("visibility").innerHTML = obj.visibility.repr + " " + obj.units.visibility;
     }
@@ -185,7 +185,7 @@ function checkTime(i) {
 getData();
 const time = setInterval(function() {
     getData()
-}, 60000);
+}, 30000);
 
 </script>
 
