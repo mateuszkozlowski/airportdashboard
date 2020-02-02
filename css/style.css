@@ -3,6 +3,8 @@ body {
 
 }
 
+.weather {padding-top:48px;}
+
 .weather-value {
     font-family: Roboto;
     font-style: normal;
