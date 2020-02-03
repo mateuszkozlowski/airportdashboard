@@ -21,49 +21,6 @@ body {
     line-height: 75px;
 }
 
-card-placeholder {
-    min-width: 264px;
-    min-height: 200px;
-    background: #C4C4C4;
-    margin-top: 20px;
-    margin-left: 20px;
-    margin-right: 0px;
-    display: table;
-    float: left;
-    padding: 0px;
-    position: relative;
-}
-
-card {
-    display: inline-block;
-    background: #fff;
-    border-radius: 2px;
-    margin: 1rem;
-    padding: 2rem;
-    width: 240px;
-    background: #C4C4C4;
-}
-
-.weather-card {
-    min-width: 702px;
-}
-
-.clock-card {
-    min-width: 400px;
-}
-
-.map-card {
-    width: 1116px;
-    height: 640px;
-}
-
-.side-card {
-    height: 640px;
-}
-
-.station {
-    font-size: 24px;
-}
 
 #temperature {
     font-style: normal;
